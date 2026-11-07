@@ -1,0 +1,44 @@
+:root {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --ok: #4ade80;
+  --bad: #f87171;
+  --tap: 48px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+main {
+  width: min(100% - 2rem, 32rem);
+  margin: 0 auto;
+  padding: 1.5rem 0 3rem;
+}
+
+a { color: var(--accent); }
+
+button {
+  display: block;
+  width: 100%;
+  min-height: var(--tap);
+  margin-top: 0.75rem;
+  border: 0;
+  border-radius: 12px;
+  background: var(--surface);
+  color: inherit;
+  font: inherit;
+}
+
+button[disabled] { opacity: 0.55; }
+button.correct { background: var(--ok); color: #052e16; }
+button.wrong { background: var(--bad); color: #450a0a; }

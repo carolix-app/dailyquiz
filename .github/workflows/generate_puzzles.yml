@@ -1,0 +1,36 @@
+name: Generate puzzles
+
+on:
+  schedule:
+    - cron: "5 0 * * *"
+  workflow_dispatch:
+    inputs:
+      play_date:
+        description: "Date UTC AAAA-MM-JJ"
+        required: false
+        type: string
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install pytest
+      - name: Générer et valider
+        env:
+          PLAY_DATE: ${{ inputs.play_date }}
+        run: |
+          args=(--output dist/batch.json --sql-output dist/daily.sql)
+          if [ -n "$PLAY_DATE" ]; then args+=(--date "$PLAY_DATE"); fi
+          python -m scripts.generate_daily_batch "${args[@]}"
+          python -m scripts.validate_batch dist/batch.json
+      - name: Publier dans D1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          sed -i "s/00000000-0000-0000-0000-000000000000/${{ secrets.CLOUDFLARE_D1_DATABASE_ID }}/" wrangler.toml
+          npx wrangler d1 execute dailyquiz --remote --file=dist/daily.sql

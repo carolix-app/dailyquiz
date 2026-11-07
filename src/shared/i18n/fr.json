@@ -1,0 +1,9 @@
+{
+  "loading": "Chargement du défi…",
+  "attempts": "Essais",
+  "streak": "Série",
+  "correct": "Bonne étape.",
+  "incorrect": "Ce n'est pas la bonne étape.",
+  "error": "Le défi est indisponible.",
+  "played": "Déjà joué aujourd'hui."
+}

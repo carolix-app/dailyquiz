@@ -1,0 +1,1 @@
+"""Jeu quotidien Itinéraire."""

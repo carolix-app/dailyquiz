@@ -1,0 +1,9 @@
+{
+  "loading": "Loading today's puzzle…",
+  "attempts": "Attempts",
+  "streak": "Streak",
+  "correct": "Right stop.",
+  "incorrect": "That is not the stop.",
+  "error": "Today's puzzle is unavailable.",
+  "played": "Already played today."
+}
